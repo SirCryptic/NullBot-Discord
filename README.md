@@ -2,6 +2,14 @@
 
 NullBot Beta is a multi-purpose Discord bot for system administrators and security enthusiasts. The bot is capable of executing commands through Discord to perform various tasks, such as detecting the operating system and finding open ports on a host using Nmap, and scanning a web server for vulnerabilities using Nikto. The bot is also equipped with an authorization system to prevent unauthorized users from running certain commands. This bot was developed by [SirCryptic](https://github.com/sircryptic) of [NullSecurityTeam](https://github.com/orgs/NULL-Security-Team), and is open-source under the [MIT license](https://github.com/SirCryptic/Nullbot-Reboot/blob/main/LICENSE).
 
+# Changelog
+<details>
+  <summary>Click to expand!</summary>
+  - Now splits the output into chunks of 2000 characters to fit in Discord messages (Sends in multiple messages if too large)
+  - Added a check if the input is a domain name
+  </details>
+
+
 # Installation Instructions
 
 1. Install the required Python packages using pip: `pip install -r requirements.txt`
