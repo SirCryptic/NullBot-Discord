@@ -4,6 +4,7 @@ import subprocess
 import os
 import re
 import ipaddress
+import socket
 
 data = {
     "prefix": "!" # or whatever prefix you want to use
