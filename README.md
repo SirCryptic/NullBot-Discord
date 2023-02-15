@@ -9,7 +9,7 @@ NullBot Beta is a multi-purpose Discord bot for system administrators and securi
 3. Add the bot to your server by following the instructions in the Discord developer portal.
 4. Copy the bot token and replace the value of `client.run('your_bot_token')` in `nullbot.py` with the bot token.
 
-# Running the bot
+# Running The Bot
 ```
 sudo python3 nullbot.py
 ```
