@@ -23,7 +23,7 @@ To use the bot, you can type the following commands ...
 - `!console nikto -h [host]` - Scan a web server for vulnerabilities
 
 
- # ⚠️ Foot Notes & Q/A ⚠️
+ # ⚠️ Foot Notes / Q&A ⚠️
 
 Q: Why do i have to run this as root?
 
@@ -31,7 +31,7 @@ A: Unfortunatly you have to run the bot as root or the nmap command doesnt funct
 
 Q: Can anyone Execute Commands & Scan the host machine?
 
-A: NO! Only specific rolls can execute the commands and localhost/all ip ranges regarding the host machine are blocked.
+A: NO! Only specific rolls can execute certain commands and localhost/all ip ranges regarding the host machine are blocked.
 
 Q: How do i change the roles or what roles are pre defined ?
 
