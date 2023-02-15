@@ -58,9 +58,15 @@ async def on_message(message):
                     await message.channel.send("Scanning addresses within the host machine's network is not allowed.")
                     return
             except ValueError:
-                await message.channel.send("Invalid IP address.")
-                return
-            command = f"sudo nmap -O {sanitizedInput}"
+                # Check if the input is a domain name
+                try:
+                    ip = ipaddress.ip_address(socket.gethostbyname(sanitizedInput))
+                except socket.gaierror:
+                    await message.channel.send("Invalid IP address or domain name.")
+                    return
+                
+            print(f"Scanning IP: {ip}")
+            command = f"sudo nmap -O {ip}"
             output = subprocess.check_output(command, shell=True).decode()
             await message.channel.send(output)
         elif args[1] == 'nikto':
@@ -78,10 +84,18 @@ async def on_message(message):
                     await message.channel.send("Scanning addresses within the host machine's network is not allowed.")
                     return
             except ValueError:
-                await message.channel.send("Invalid IP address.")
-                return
-            command = ["nikto", "-h", sanitizedInput]
+                # Check if the input is a domain name
+                try:
+                    ip = ipaddress.ip_address(socket.gethostbyname(sanitizedInput))
+                except socket.gaierror:
+                    await message.channel.send("Invalid IP address or domain name.")
+                    return
+                
+            print(f"Scanning IP: {ip}")
+            command = ["nikto", "-h", str(ip)]
             output = subprocess.check_output(command).decode()
-            await message.channel.send(output)
-
+            # Split the output into chunks of 2000 characters to fit in Discord messages
+            for chunk in [output[i:i+2000] for i in range(0, len(output), 2000)]:
+                await message.channel.send(chunk)
+                
 client.run('your_bot_token')
