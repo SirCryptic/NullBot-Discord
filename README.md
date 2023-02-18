@@ -8,6 +8,8 @@ NullBot Beta is a multi-purpose Discord bot for system administrators and securi
 # Changelog
 <details>
   <summary>Click to expand!</summary>
+
+  - Added WHOIS
   
   - Now splits the output into chunks of 2000 characters to fit in Discord messages (Sends in multiple messages if too large)
   
