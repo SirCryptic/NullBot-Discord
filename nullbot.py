@@ -5,7 +5,7 @@ import os
 import re
 import ipaddress
 import socket
-
+import whois
 data = {
     "prefix": "!" # or whatever prefix you want to use
 }
@@ -39,6 +39,7 @@ async def on_message(message):
         if args[1] == 'help':
             await message.channel.send("List of available commands: \n"
                 "-----------------------------------------------------------------------\n"
+                + data['prefix'] + "console whois - Get WHOIS Information About A Domain\n"
                 + data['prefix'] + "console nmap - Detect OS & Find Open Ports On A Host\n"
                 + data['prefix'] + "console nikto - Scan a web server for vulnerabilities\n"
                 "-----------------------------------------------------------------------\n"
@@ -98,4 +99,32 @@ async def on_message(message):
             for chunk in [output[i:i+2000] for i in range(0, len(output), 2000)]:
                 await message.channel.send(chunk)
                 
+        elif args[1] == 'whois':
+            if not is_authorized(message.author):
+                await message.channel.send("You are not authorized to run this command.")
+                return
+            sanitizedInput = sanitize(args[2])
+            try:
+                ip = ipaddress.ip_address(sanitizedInput)
+                if ip.is_loopback or ip.is_link_local:
+                    await message.channel.send("Performing a whois lookup on localhost and link-local addresses is not allowed.")
+                    return
+                host = ipaddress.ip_network('10.0.0.0/8')
+                if ip in host:
+                    await message.channel.send("Performing a whois lookup on addresses within the host machine's network is not allowed.")
+                    return
+            except ValueError:
+                # Check if the input is a domain name
+                try:
+                    ip = ipaddress.ip_address(socket.gethostbyname(sanitizedInput))
+                except socket.gaierror:
+                    await message.channel.send("Invalid IP address or domain name.")
+                    return
+                
+    command = ["whois", sanitizedInput]
+    output = subprocess.check_output(command).decode()
+    # Split the output into chunks of 2000 characters to fit in Discord messages
+    for chunk in [output[i:i+2000] for i in range(0, len(output), 2000)]:
+        await message.channel.send(chunk)
+        
 client.run('your_bot_token')
