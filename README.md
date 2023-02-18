@@ -34,6 +34,7 @@ sudo python3 nullbot.py
 To use the bot, you can type the following commands ...
 
 - `!console help` - Displays the list of available functions
+- `!console whois [host]` - Get WHOIS Information About A Domain or IP
 - `!console nmap [host]` - Detect OS & Find Open Ports On A Host
 - `!console nikto -h [host]` - Scan a web server for vulnerabilities
 
